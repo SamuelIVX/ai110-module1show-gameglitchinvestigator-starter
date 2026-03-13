@@ -4,9 +4,12 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+The game had several bugs:
+
+The secret number resets every time you submit a guess, making it impossible to win. This happens because the secret number is re-randomized on each rerun or when starting a new game, instead of persisting correctly in session state.
+The hints for guesses are incorrect: when the guess is higher than the secret, it says "Go HIGHER!" instead of "Go LOWER!", and vice versa. This misleads the player and makes the game unplayable.
+The "New Game" button always resets the secret number to a value between 1 and 100, ignoring the selected difficulty range.
+What should happen: The secret number should remain the same throughout a game session, hints should accurately tell the player to guess higher or lower, and the new game should respect the selected difficulty range.
 
 ---
 

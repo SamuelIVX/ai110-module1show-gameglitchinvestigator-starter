@@ -3,6 +3,7 @@ import streamlit as st
 from logic_utils import get_range_for_difficulty, parse_guess, check_guess, update_score
 
 # source venv/bin/activate
+# streamlit run app.py
 
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
@@ -73,7 +74,8 @@ with col3:
 
 if new_game:
     st.session_state.attempts = 0
-    # FIXME: Logic breaks here — hardcoded range ignores difficulty; fixed below
+    # FIX: Claude identified the hardcoded randint(1, 100) was ignoring difficulty.
+    # Changed to use low/high from get_range_for_difficulty; verified with test_difficulty_range_easy/hard.
     st.session_state.secret = random.randint(low, high)
     st.success("New game started.")
     st.rerun()
@@ -96,7 +98,8 @@ if submit:
     else:
         st.session_state.history.append(guess_int)
 
-        # FIXME: Logic breaks here — secret was cast to str on even attempts; fixed below
+        # FIX: Claude caught that secret was cast to str on even attempts, breaking int comparisons.
+        # Removed the even/odd branch entirely; verified with test_check_guess_secret_stays_int.
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)

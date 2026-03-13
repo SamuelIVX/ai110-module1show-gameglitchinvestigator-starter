@@ -1,3 +1,6 @@
+# FIX: Refactored all game logic out of app.py into this file using Claude Code Agent mode.
+# Claude identified which functions belonged here and moved them cleanly so they could be unit tested.
+
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     if difficulty == "Easy":
@@ -42,7 +45,8 @@ def check_guess(guess, secret):
         return "Win", "🎉 Correct!"
 
     try:
-        # FIXME: Logic breaks here — messages are swapped; fixed below
+        # FIX: Claude spotted the swapped messages — "Go HIGHER!" was shown when guess was too high.
+        # Verified by running pytest test_too_high_message_is_go_lower which confirmed the correct output.
         if guess > secret:
             return "Too High", "📉 Go LOWER!"
         else:

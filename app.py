@@ -1,6 +1,8 @@
 import random
 import streamlit as st
 
+# source venv/bin/activate
+
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
